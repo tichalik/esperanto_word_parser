@@ -8,7 +8,8 @@ int main(){
 
 	Parse_word pw;
 
-	std::string s = "tak";
+	std::string s = "hello world!";
+	
 	std::vector<Parsed_word> result = pw.parse(s);
 	for (Parsed_word pw: result){
 		std::cout << pw.to_string() << ",";
