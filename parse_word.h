@@ -11,6 +11,7 @@ class Parse_word{
 		std::vector<Parsed_word> _parse(const std::string & input, const int cache_offset);
 	public: 
 		std::vector<Parsed_word> parse(const std::string & input);
+		static int count;
 //	Parse_word();
 };
 

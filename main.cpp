@@ -15,5 +15,6 @@ int main(int argn, char** args ){
 		std::cout << pw.to_string() << ",";
 	}
 	std::cout <<"\nsize: " << result.size() << "\n";
+	std::cout <<"number of calls " << pw.count << "\n";
 	return 0;
 }

@@ -29,7 +29,10 @@ std::vector<Parsed_word> Parse_word::parse(const std::string & input){
 	return result;
 }
 
+int Parse_word::count = 0;
+
 std::vector<Parsed_word> Parse_word::_parse(const std::string & input, const int cache_offset){
+	count ++;
 	std::vector<Parsed_word> result;
 	for (int i=0; i<input.size()-1; i++){
 		Morpheme validated_morpheme = validate(input.substr(0,i+1));
@@ -37,13 +40,14 @@ std::vector<Parsed_word> Parse_word::_parse(const std::string & input, const int
 		if (validated_morpheme.content == "") continue;
 
 
-		std::vector<Parsed_word> tail_m;
-		if (cache[cache_offset].size()==0){
-			tail_m = _parse(input.substr(i+1),cache_offset+i+1);
-		} 
-		else {
-			tail_m = cache[cache_offset];
+		std::vector<Parsed_word> tail_m ;
+	        if (cache[cache_offset].size()==0){
+	       	        tail_m = _parse(input.substr(i+1),cache_offset+i+1);
 		}
+		else{
+			tail_m = cache[cache_offset+i+1];
+		}
+			
 		for (Parsed_word parsed_word: tail_m){
 	
 			Parsed_word single_result;
@@ -62,7 +66,6 @@ std::vector<Parsed_word> Parse_word::_parse(const std::string & input, const int
 	}
 
 	if (cache[cache_offset].size()==0){
-		std::cout << "adding offset " << cache_offset << "\n"; 
 		cache[cache_offset] = result;
 	}
 
