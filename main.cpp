@@ -4,11 +4,11 @@
 
 #include "parse_word.h"
 
-int main(){
+int main(int argn, char** args ){
 
 	Parse_word pw;
 
-	std::string s = "hello";
+	std::string s = (argn>1 ? args[1] : "hello!");
 	
 	std::vector<Parsed_word> result = pw.parse(s);
 	for (Parsed_word pw: result){
