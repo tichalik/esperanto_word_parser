@@ -5,14 +5,10 @@
 #include <string>
 #include "parsed_word.h"
 
-class Parse_word
-{
-	std::vector<std::vector<Parsed_word>> p_cache;
-	Morpheme validate(const std::string & s);
-	void partition(const std::string  input, std::vector<Parsed_word> &result, int offset);
-	public:
-	std::vector<Parsed_word> partition(const std::string & input);
-		Parse_word();
+class Parse_word{
+		Morpheme validate(const std::string &s);
+	public: 
+		std::vector<Parsed_word> parse(const std::string & input);
 };
 
 #endif
