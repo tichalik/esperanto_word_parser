@@ -1,5 +1,4 @@
 #include "Parse_word.h"
-#include <iostream>
 Morpheme Parse_word::validate(const std::string & s){
 	Morpheme m(s, "blah blah");
 	return m;
@@ -7,31 +6,26 @@ Morpheme Parse_word::validate(const std::string & s){
 std::vector<Parsed_word> Parse_word::parse(const std::string & input){
 	std::vector<Parsed_word> result;
 	for (int i=0; i<input.size()-1; i++){
-		Morpheme vm = validate(input.substr(0,i+1));
-		std::cout << "morpheme: " << vm.content << "\n";
-		std::cout << "remaining: " << input.substr(i+1) << "\n";
+		Morpheme validated_morpheme = validate(input.substr(0,i+1));
 		//skipping faulty morphemes
-		if (vm.content == "") continue;
+		if (validated_morpheme.content == "") continue;
 
 
 		std::vector<Parsed_word> tail_m = parse(input.substr(i+1));
-		for (Parsed_word pw: tail_m){
+		for (Parsed_word parsed_word: tail_m){
 	
-			Parsed_word wr;
-			wr.add(vm);
-			std::cout << wr.to_string() << " result before adding tail\n";
-			wr.append_back(pw);
-			result.push_back(wr);
+			Parsed_word single_result;
+			single_result.add(validated_morpheme);
+			single_result.append_back(parsed_word);
+			result.push_back(single_result);
 			
-			std::cout << wr.to_string() <<" result\n";
 		}
 	}
 	//when the entire string is considered
-	Morpheme vm = validate(input);
-	Parsed_word pw;
-	pw.add(vm);
-	std::cout << "adding single morpheme" << pw.to_string() << "\n";
-	if (vm.content != "" ) result.push_back(pw);
+	Morpheme validated_morpheme = validate(input);
+	Parsed_word parsed_word;
+	parsed_word.add(validated_morpheme);
+	if (validated_morpheme.content != "" ) result.push_back(parsed_word);
 
 	return result;
 
