@@ -6,10 +6,14 @@
 
 int main(int argn, char** args ){
 
-	Parse_word pw;
+	Parse_word pw("dictionary.txt");
+	if (pw.is_ok()!=""){
+		std::cout << pw.is_ok() << "\n";
+		return 1;
+	}
 
 	std::string s = (argn>1 ? args[1] : "hello!");
-	
+			
 	std::vector<Parsed_word> result = pw.parse(s);
 	for (Parsed_word pw: result){
 		std::cout << pw.to_string() << ",";

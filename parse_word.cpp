@@ -1,30 +1,47 @@
 #include "Parse_word.h"
 #include <iostream>
 Morpheme Parse_word::validate(const std::string & s){
-	Morpheme m(s, "blah blah");
+	Morpheme m;
+	if (dic.contains(s)){
+		m.content = s;
+		m.description = dic[s];
+	}
 	return m;
 }
 
-//Parse_word::Parse_word(): cache({}){
+Parse_word::Parse_word(const std::string & ptd): cache({}){
+	std::ifstream file(ptd);
+	if(file){
+		std::string line;
+		std::string head;
+		int pos =0;
+		int linecount = 0;
+		while( std::getline(file, line)){
+			linecount++;
+			pos = line.find(" ");
+			if (pos == std::string::npos){
+				error = "invalid file format at line " + linecount;
+				return;
+			}
+			dic[line.substr(0, pos)] = line.substr(pos+1);
+		}
+	}
+	else{
+		error = "cannot open file " + ptd;
+		return;
+	}
 
-//}
+}
+std::string Parse_word::is_ok(){
+	return error;
+}
 
 std::vector<Parsed_word> Parse_word::parse(const std::string & input){
 	cache.clear();
 	for (int i=0; i<input.size(); i++)
 		cache.push_back({});
 
-	std::cout << cache.size() << "\n";
 	auto result = _parse(input,0);
-
-	std::cout << "cache content: \n";
-	for( int i=0; i<cache.size(); i++){
-		std::cout << i << ". ";
-		for (int j=0; j<cache[i].size(); j++){
-			std::cout << cache[i][j].to_string() << "  ";
-		}
-		std::cout << "\n";
-	}
 
 	return result;
 }
