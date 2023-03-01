@@ -1,0 +1,9 @@
+a adjective marker
+o noun marker
+i verb marker
+e adverb marker
+amik friend
+ul person
+ar group
+hom person
+homar lobster

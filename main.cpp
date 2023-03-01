@@ -12,7 +12,7 @@ int main(int argn, char** args ){
 		return 1;
 	}
 
-	std::string s = (argn>1 ? args[1] : "hello!");
+	std::string s = (argn>1 ? args[1] : "homaro");
 			
 	std::vector<Parsed_word> result = pw.parse(s);
 	for (Parsed_word pw: result){

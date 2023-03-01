@@ -14,17 +14,7 @@ void Parsed_word::append_back(const Parsed_word & pw){
 std::string Parsed_word::to_string(){
 	std::string result;
 	for (Morpheme m: morphemes){
-		std::string s =  m.content + " " + m.description; 
-		std::cout << s << "\n";
-		s +=std::string(" ");
-
-		std::cout << s << "\n";
-		s += std::string("a");
-
-		std::cout << s << "\n";
-		s += std::string(" ");
-
-		result +="-"+ m.content;
+		result +="-"+ m.content + "[" + m.description + "]";
 	}
 	if(result.size())
 		result = result.substr(1);
