@@ -2,15 +2,15 @@
 #include <iostream>
 Morpheme Parse_word::validate(const std::string & s){
 	Morpheme m;
-	if (dic.contains(s)){
+	if (dictionary.contains(s)){
 		m.content = s;
-		m.description = dic[s];
+		m.description = dictionary[s];
 	}
 	return m;
 }
 
-Parse_word::Parse_word(const std::string & ptd): cache({}){
-	std::ifstream file(ptd);
+Parse_word::Parse_word(const std::string & path_to_dictionary): cache({}){
+	std::ifstream file(path_to_dictionary);
 	if(file){
 		std::string line;
 		std::string head;
@@ -23,11 +23,11 @@ Parse_word::Parse_word(const std::string & ptd): cache({}){
 				error = "invalid file format at line " + linecount;
 				return;
 			}
-			dic[line.substr(0, pos)] = line.substr(pos+1);
+			dictionary[line.substr(0, pos)] = line.substr(pos+1);
 		}
 	}
 	else{
-		error = "cannot open file " + ptd;
+		error = "cannot open file " + path_to_dictionary;
 		return;
 	}
 
